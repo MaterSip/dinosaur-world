@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prehistoric 3D Dinosaur World</title>
+    <script type="module" crossorigin src="/assets/index-BpmW4qEP.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-E65RcifX.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="ui-container">
+      <div id="crosshair"></div>
+      
+      <div id="interaction-prompt" class="hidden">
+        <span class="key-badge">E</span> <span id="prompt-text">Interact</span>
+      </div>
+
+      <div id="hud-top">
+        <div class="hud-pill" id="time-indicator">☀️ Golden Hour</div>
+        <div class="hud-pill" id="zone-indicator">🏞️ Prehistoric Basin</div>
+        <div class="hud-pill" id="quality-selector">
+          <span class="quality-label">⚡ Graphics:</span>
+          <button class="quality-btn" data-quality="low" title="No shadows, pixelRatio=1, direct render">Low</button>
+          <button class="quality-btn" data-quality="medium" title="1024 shadows, SMAA anti-aliasing">Medium</button>
+          <button class="quality-btn active" data-quality="high" title="Full SSAO + Bloom + SMAA, 2048 shadows, PBR water">High</button>
+        </div>
+      </div>
+
+      <div id="hud-controls-hint">
+        <span><b>WASD</b> Walk</span>
+        <span><b>SHIFT</b> Sprint</span>
+        <span><b>SPACE</b> Jump</span>
+        <span><b>E</b> Feed / Action</span>
+        <span><b>C</b> Camera Viewfinder</span>
+        <span><b>F</b> Field Guide</span>
+        <span><b>M</b> Map</span>
+        <span><b>1-4</b> Time of Day</span>
+      </div>
+
+      <!-- Field Camera Viewfinder Overlay -->
+      <div id="camera-overlay" class="hidden">
+        <div class="viewfinder-frame">
+          <div class="corner top-left"></div>
+          <div class="corner top-right"></div>
+          <div class="corner bottom-left"></div>
+          <div class="corner bottom-right"></div>
+          <div class="rec-dot">● REC</div>
+          <div class="focal-indicator">F/2.8 &bull; 85mm &bull; ISO 100</div>
+          <div class="snap-hint">Press <b>SPACE</b> or <b>Left Click</b> to Snap Photo</div>
+        </div>
+      </div>
+
+      <!-- Field Guide Dossier Modal -->
+      <div id="field-guide-modal" class="hidden">
+        <div class="guide-card">
+          <div class="guide-header">
+            <h2 id="guide-name">Tyrannosaurus Rex</h2>
+            <button id="guide-close">&times;</button>
+          </div>
+          <div class="guide-body">
+            <div class="guide-badge" id="guide-era">Late Cretaceous &bull; 68–66 Ma</div>
+            <p id="guide-desc">The apex predator of the prehistoric world, armed with bone-crushing jaws and acute binocular vision.</p>
+            <div class="guide-stats">
+              <div><b>Length:</b> <span id="guide-length">12.3 m</span></div>
+              <div><b>Height:</b> <span id="guide-height">4.0 m</span></div>
+              <div><b>Diet:</b> <span id="guide-diet">Carnivore</span></div>
+              <div><b>Temperament:</b> <span id="guide-temperament">Territorial & Dangerous</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo Snapshot Card -->
+      <div id="photo-preview" class="hidden">
+        <div class="polaroid">
+          <img id="photo-img" src="" alt="Snapshot" />
+          <div class="caption" id="photo-caption">Field Photo - Tyrannosaurus Rex</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Click to Start / PointerLock Blocker -->
+    <div id="blocker">
+      <div id="instructions">
+        <h1>PREHISTORIC VALLEY</h1>
+        <p class="subtitle">A Living 3D Cretaceous Safari Simulation</p>
+        <div class="start-btn">CLICK TO ENTER VALLEY</div>
+        <p class="keys-legend">Mouse to look &bull; WASD to move &bull; SHIFT to sprint</p>
+      </div>
+    </div>
+
+  </body>
+</html>
