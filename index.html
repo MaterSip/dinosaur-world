@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Prehistoric 3D Dinosaur World</title>
-    <script type="module" crossorigin src="./assets/index-BQyd_RPM.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-E65RcifX.css">
+    <script type="module" crossorigin src="./assets/index-CrodyhOr.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dq3uXKP_.css">
   </head>
   <body>
     <div id="app"></div>
@@ -17,25 +17,74 @@
       </div>
 
       <div id="hud-top">
-        <div class="hud-pill" id="time-indicator">☀️ Golden Hour</div>
-        <div class="hud-pill" id="zone-indicator">🏞️ Prehistoric Basin</div>
-        <div class="hud-pill" id="quality-selector">
-          <span class="quality-label">⚡ Graphics:</span>
-          <button class="quality-btn" data-quality="low" title="No shadows, pixelRatio=1, direct render">Low</button>
-          <button class="quality-btn" data-quality="medium" title="1024 shadows, SMAA anti-aliasing">Medium</button>
-          <button class="quality-btn active" data-quality="high" title="Full SSAO + Bloom + SMAA, 2048 shadows, PBR water">High</button>
+        <div class="hud-select-wrapper">
+          <select id="time-select" class="hud-dropdown" title="切換時間">
+            <option value="golden">☀️ 夕陽 Golden</option>
+            <option value="sunrise">🌅 日出 Sunrise</option>
+            <option value="midday">🌞 正午 Midday</option>
+            <option value="night">🌌 暗夜 Night</option>
+          </select>
+        </div>
+
+        <div class="hud-select-wrapper">
+          <select id="safari-view-select" class="hud-dropdown" title="切換觀景鏡頭">
+            <option value="free">🏞️ 自由探索 (Free)</option>
+            <option value="ground">🦤 湖畔眺望 (Shoreline)</option>
+            <option value="trex">🦖 霸王龍突襲 (T-Rex)</option>
+            <option value="sauropod">🦕 腕龍樹冠 (Sauropod)</option>
+            <option value="panorama">🌄 盆地全景 (Panorama)</option>
+          </select>
+        </div>
+
+        <div class="hud-select-wrapper">
+          <select id="quality-select" class="hud-dropdown" title="畫質設定">
+            <option value="high" selected>⚡ 畫質: 高 (High)</option>
+            <option value="medium">⚡ 畫質: 中 (Medium)</option>
+            <option value="low">⚡ 畫質: 低 (Low)</option>
+          </select>
+        </div>
+
+        <div class="hud-icons-group">
+          <button id="btn-camera" class="hud-icon-btn" title="相機攝影模式 (C)">📷</button>
+          <button id="btn-fullscreen" class="hud-icon-btn" title="切換全螢幕 (F11)">⛶</button>
+          <button id="btn-help" class="hud-icon-btn" title="操作導覽說明 (?)">❔</button>
         </div>
       </div>
 
-      <div id="hud-controls-hint">
-        <span><b>WASD</b> Walk</span>
-        <span><b>SHIFT</b> Sprint</span>
-        <span><b>SPACE</b> Jump</span>
-        <span><b>E</b> Feed / Action</span>
-        <span><b>C</b> Camera Viewfinder</span>
-        <span><b>F</b> Field Guide</span>
-        <span><b>M</b> Map</span>
-        <span><b>1-4</b> Time of Day</span>
+      <!-- Mobile Action Buttons (Above Minimap) -->
+      <div id="mobile-actions">
+        <button id="btn-jump" class="mobile-action-btn" title="跳躍 (Space)">JUMP</button>
+        <button id="btn-feed" class="mobile-action-btn hidden" title="餵食恐龍 (E)">FEED</button>
+        <button id="btn-dino-guide" class="mobile-action-btn hidden" title="恐龍圖鑑 (F)">📖 圖鑑</button>
+        <button id="btn-shutter" class="mobile-shutter-btn hidden" title="拍照快門">⚪</button>
+      </div>
+
+      <!-- Help Guide Modal -->
+      <div id="help-modal" class="hidden">
+        <div class="help-card">
+          <div class="help-header">
+            <h2>🦕 史前探險導覽 &bull; Explorer Guide</h2>
+            <button id="help-close" title="關閉">&times;</button>
+          </div>
+          <div class="help-body">
+            <div class="help-section">
+              <h3>📱 手機觸控操作 (Touch Controls)</h3>
+              <p>• <b>滑動螢幕</b>：單指在畫面任意處滑動轉動 3D 視角</p>
+              <p>• <b>左下搖桿</b>：推動走位；持續向前推 2 秒自動提速疾跑 (Sprint)</p>
+              <p>• <b>右下地圖</b>：點擊小地圖展開全螢幕地圖，點擊地圖任意處關閉</p>
+              <p>• <b>恐龍互動</b>：靠近恐龍時點擊右側 <b>[FEED]</b> 或 <b>[📖 圖鑑]</b></p>
+              <p>• <b>相機模式</b>：點擊上方 📷 開啟取景框，點擊右下 ⚪ 快門拍照</p>
+            </div>
+            <div class="help-section">
+              <h3>💻 電腦鍵盤滑鼠操作 (Keyboard & Mouse)</h3>
+              <p>• <b>W A S D</b>：前進、後退、左平移、右平移</p>
+              <p>• <b>SHIFT</b>：衝刺奔跑 &bull; <b>SPACE</b>：跳躍</p>
+              <p>• <b>滑鼠拖動 / 點擊鎖定</b>：旋轉視角</p>
+              <p>• <b>E</b>：餵食 / 互動 &bull; <b>F</b>：恐龍百科圖鑑 &bull; <b>C</b>：相機模式 &bull; <b>M</b>：全景地圖</p>
+              <p>• <b>1 ~ 4</b>：切換日照時刻 &bull; <b>5 ~ 8</b>：定點觀景鏡頭 &bull; <b>0</b>：返回自由操作</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Field Camera Viewfinder Overlay -->
@@ -47,7 +96,7 @@
           <div class="corner bottom-right"></div>
           <div class="rec-dot">● REC</div>
           <div class="focal-indicator">F/2.8 &bull; 85mm &bull; ISO 100</div>
-          <div class="snap-hint">Press <b>SPACE</b> or <b>Left Click</b> to Snap Photo</div>
+          <div class="snap-hint">點擊 <b>⚪ 快門</b>、按 <b>SPACE</b> 或 <b>滑鼠左鍵</b> 拍攝照片</div>
         </div>
       </div>
 
@@ -85,8 +134,8 @@
       <div id="instructions">
         <h1>PREHISTORIC VALLEY</h1>
         <p class="subtitle">A Living 3D Cretaceous Safari Simulation</p>
-        <div class="start-btn">CLICK TO ENTER VALLEY</div>
-        <p class="keys-legend">Mouse to look &bull; WASD to move &bull; SHIFT to sprint</p>
+        <div class="start-btn">點擊進入史前世界 &bull; CLICK TO ENTER</div>
+        <p class="keys-legend">滑動/滑鼠轉動視角 &bull; 虛擬搖桿/WASD 移動</p>
       </div>
     </div>
 
