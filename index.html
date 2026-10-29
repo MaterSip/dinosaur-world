@@ -4,44 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Prehistoric 3D Dinosaur World</title>
-    <script type="module" crossorigin src="./assets/index-CrodyhOr.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dq3uXKP_.css">
+    <script type="module" crossorigin src="./assets/index-CSNbopTc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BpTp0I4O.css">
   </head>
   <body>
     <div id="app"></div>
     <div id="ui-container">
       <div id="crosshair"></div>
       
-      <div id="interaction-prompt" class="hidden">
+      <div id="interaction-prompt" class="hidden" style="display: none !important;">
         <span class="key-badge">E</span> <span id="prompt-text">Interact</span>
       </div>
 
+      <!-- Top Navigation & Controls Bar (Option B Floating Popovers) -->
       <div id="hud-top">
-        <div class="hud-select-wrapper">
-          <select id="time-select" class="hud-dropdown" title="切換時間">
-            <option value="golden">☀️ 夕陽 Golden</option>
-            <option value="sunrise">🌅 日出 Sunrise</option>
-            <option value="midday">🌞 正午 Midday</option>
-            <option value="night">🌌 暗夜 Night</option>
-          </select>
+        <div class="hud-menu-wrapper">
+          <button id="btn-time-menu" class="hud-icon-btn" title="時刻切換 (1-4)">☀️</button>
+          <div id="time-popover" class="hud-popover hidden">
+            <div class="popover-title">時刻選擇 Time</div>
+            <button class="popover-item active" data-value="golden"><span>☀️</span> 夕陽 Golden</button>
+            <button class="popover-item" data-value="sunrise"><span>🌅</span> 日出 Sunrise</button>
+            <button class="popover-item" data-value="midday"><span>🌞</span> 正午 Midday</button>
+            <button class="popover-item" data-value="night"><span>🌌</span> 暗夜 Night</button>
+          </div>
         </div>
 
-        <div class="hud-select-wrapper">
-          <select id="safari-view-select" class="hud-dropdown" title="切換觀景鏡頭">
-            <option value="free">🏞️ 自由探索 (Free)</option>
-            <option value="ground">🦤 湖畔眺望 (Shoreline)</option>
-            <option value="trex">🦖 霸王龍突襲 (T-Rex)</option>
-            <option value="sauropod">🦕 腕龍樹冠 (Sauropod)</option>
-            <option value="panorama">🌄 盆地全景 (Panorama)</option>
-          </select>
+        <div class="hud-menu-wrapper">
+          <button id="btn-safari-menu" class="hud-icon-btn" title="觀景鏡頭 (5-9, 0)">🏞️</button>
+          <div id="safari-popover" class="hud-popover hidden">
+            <div class="popover-title">觀景鏡頭 Safari View</div>
+            <button class="popover-item active" data-value="free"><span>🏞️</span> 自由探索 (Free)</button>
+            <button class="popover-item" data-value="human"><span>🚶</span> 人類探索 (Human 1.6m)</button>
+            <button class="popover-item" data-value="ground"><span>🦤</span> 湖畔眺望 (Shoreline)</button>
+            <button class="popover-item" data-value="trex"><span>🦖</span> 霸王龍突襲 (T-Rex)</button>
+            <button class="popover-item" data-value="sauropod"><span>🦕</span> 腕龍樹冠 (Sauropod)</button>
+            <button class="popover-item" data-value="panorama"><span>🌄</span> 盆地全景 (Panorama)</button>
+          </div>
         </div>
 
-        <div class="hud-select-wrapper">
-          <select id="quality-select" class="hud-dropdown" title="畫質設定">
-            <option value="high" selected>⚡ 畫質: 高 (High)</option>
-            <option value="medium">⚡ 畫質: 中 (Medium)</option>
-            <option value="low">⚡ 畫質: 低 (Low)</option>
-          </select>
+        <div class="hud-menu-wrapper">
+          <button id="btn-quality-menu" class="hud-icon-btn" title="畫質設定 (Graphics Quality)">
+            <span id="quality-icon-slot"></span>
+          </button>
+          <div id="quality-popover" class="hud-popover hidden">
+            <div class="popover-title">畫質設定</div>
+            <button class="popover-item active" data-value="high"><span class="item-icon-slot high"></span> 高畫質</button>
+            <button class="popover-item" data-value="medium"><span class="item-icon-slot medium"></span> 中畫質</button>
+            <button class="popover-item" data-value="low"><span class="item-icon-slot low"></span> 低畫質</button>
+          </div>
         </div>
 
         <div class="hud-icons-group">
@@ -53,9 +63,9 @@
 
       <!-- Mobile Action Buttons (Above Minimap) -->
       <div id="mobile-actions">
-        <button id="btn-jump" class="mobile-action-btn" title="跳躍 (Space)">JUMP</button>
-        <button id="btn-feed" class="mobile-action-btn hidden" title="餵食恐龍 (E)">FEED</button>
-        <button id="btn-dino-guide" class="mobile-action-btn hidden" title="恐龍圖鑑 (F)">📖 圖鑑</button>
+        <button id="btn-jump" class="mobile-action-btn" title="跳躍 (Space)">⇪</button>
+        <button id="btn-feed" class="mobile-action-btn hidden" title="觀察 / 餵食 (E)">👁️</button>
+        <button id="btn-dino-guide" class="mobile-action-btn hidden" title="恐龍圖鑑 (F)">📖</button>
         <button id="btn-shutter" class="mobile-shutter-btn hidden" title="拍照快門">⚪</button>
       </div>
 
@@ -104,17 +114,17 @@
       <div id="field-guide-modal" class="hidden">
         <div class="guide-card">
           <div class="guide-header">
-            <h2 id="guide-name">Tyrannosaurus Rex</h2>
-            <button id="guide-close">&times;</button>
+            <h2 id="guide-name">霸王龍 (Tyrannosaurus Rex)</h2>
+            <button id="guide-close" title="關閉圖鑑">&times;</button>
           </div>
           <div class="guide-body">
-            <div class="guide-badge" id="guide-era">Late Cretaceous &bull; 68–66 Ma</div>
-            <p id="guide-desc">The apex predator of the prehistoric world, armed with bone-crushing jaws and acute binocular vision.</p>
+            <div class="guide-badge" id="guide-era">晚白堊世 &bull; 68–66 Ma</div>
+            <p id="guide-desc">史前北美洲無可爭議的陸地霸主，擁有超過 12,000 磅能粉碎骨骼的驚人咬合力。</p>
             <div class="guide-stats">
-              <div><b>Length:</b> <span id="guide-length">12.3 m</span></div>
-              <div><b>Height:</b> <span id="guide-height">4.0 m</span></div>
-              <div><b>Diet:</b> <span id="guide-diet">Carnivore</span></div>
-              <div><b>Temperament:</b> <span id="guide-temperament">Territorial & Dangerous</span></div>
+              <div><b>體長：</b> <span id="guide-length">12.3 公尺</span></div>
+              <div><b>體高：</b> <span id="guide-height">4.0 公尺</span></div>
+              <div><b>食性：</b> <span id="guide-diet">肉食性</span></div>
+              <div><b>習性：</b> <span id="guide-temperament">領域頂級掠食者</span></div>
             </div>
           </div>
         </div>
