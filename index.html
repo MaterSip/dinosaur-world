@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Prehistoric 3D Dinosaur World</title>
-    <script type="module" crossorigin src="./assets/index-DoOJTkXk.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BpTp0I4O.css">
+    <script type="module" crossorigin src="./assets/index-BcVV4kd_.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BVZfQ6sN.css">
   </head>
   <body>
     <div id="app"></div>
@@ -137,15 +137,27 @@
           <div class="caption" id="photo-caption">Field Photo - Tyrannosaurus Rex</div>
         </div>
       </div>
+
+      <!-- Dino Direction Hint Tag (兒童友善恐龍方向指引) -->
+      <div id="dino-hint-tag" class="hidden">
+        <span class="hint-arrow">🦕</span>
+        <span id="dino-hint-name">霸王龍</span>
+        <span class="hint-arrow" id="dino-hint-dir">➡</span>
+        <span class="hint-dist" id="dino-hint-dist">50m</span>
+      </div>
     </div>
 
     <!-- Click to Start / PointerLock Blocker -->
     <div id="blocker">
       <div id="instructions">
         <h1>PREHISTORIC VALLEY</h1>
-        <p class="subtitle">A Living 3D Cretaceous Safari Simulation</p>
+        <p class="subtitle">恐龍世界 3D • 白堊紀史前探險</p>
+        <div id="tap-hint">
+          <span class="tap-finger">👆</span>
+          <span class="tap-label">點這裡開始探險！</span>
+        </div>
         <div class="start-btn">點擊進入史前世界 &bull; CLICK TO ENTER</div>
-        <p class="keys-legend">滑動/滑鼠轉動視角 &bull; 虛擬搖桿/WASD 移動</p>
+        <p class="keys-legend">滑動手指轉動視角 &bull; 搖桿/WASD 走路 &bull; 靠近恐龍互動！</p>
       </div>
     </div>
 
