@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Prehistoric 3D Dinosaur World</title>
-    <script type="module" crossorigin src="./assets/index-BXrF_jka.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BQ-p9SXs.css">
+    <script type="module" crossorigin src="./assets/index-D4ddsb-X.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DG9RAMpd.css">
   </head>
   <body>
     <div id="app"></div>
@@ -26,14 +26,15 @@
             <button class="popover-item" data-value="sunrise"><span>🌅</span> 日出 Sunrise</button>
             <button class="popover-item" data-value="midday"><span>🌞</span> 正午 Midday</button>
             <button class="popover-item" data-value="night"><span>🌌</span> 暗夜 Night</button>
+            <button class="popover-item" data-value="rainbow"><span>🌦️</span> 太陽雨 Rainbow</button>
           </div>
         </div>
 
         <div class="hud-menu-wrapper">
-          <button id="btn-safari-menu" class="hud-icon-btn" title="觀景鏡頭 (5-9, 0)">🏞️</button>
+          <button id="btn-safari-menu" class="hud-icon-btn" title="觀景鏡頭 (5-9, 0)">🔭</button>
           <div id="safari-popover" class="hud-popover hidden">
             <div class="popover-title">觀景鏡頭 Safari View</div>
-            <button class="popover-item active" data-value="free"><span>🏞️</span> 自由探索 (Free)</button>
+            <button class="popover-item active" data-value="free"><span>🔭</span> 自由探索 (Free)</button>
             <button class="popover-item" data-value="human"><span>🚶</span> 人類探索 (Human 1.6m)</button>
             <button class="popover-item" data-value="ground"><span>🦤</span> 湖畔眺望 (Shoreline)</button>
             <button class="popover-item" data-value="trex"><span>🦖</span> 霸王龍突襲 (T-Rex)</button>
@@ -56,9 +57,13 @@
         </div>
 
         <div class="hud-icons-group">
-          <button id="btn-camera" class="hud-icon-btn" title="相機攝影模式 (C)">📷</button>
+          <button id="btn-camera" class="hud-icon-btn" title="相機攝影模式 (C)">📸</button>
+          <button id="btn-album" class="hud-album-btn" title="小小探險家恐龍相簿">
+            📒 <span id="album-counter">(0/8)</span>
+            <span id="album-badge" class="album-badge hidden"></span>
+          </button>
           <button id="btn-fullscreen" class="hud-icon-btn" title="切換全螢幕 (F11)">⛶</button>
-          <button id="btn-help" class="hud-icon-btn" title="操作導覽說明 (?)">❔</button>
+          <button id="btn-help" class="hud-icon-btn" title="操作導覽說明 (?)">❓</button>
         </div>
       </div>
 
@@ -107,11 +112,13 @@
           <div class="corner bottom-right"></div>
           <div class="rec-dot">● REC</div>
           <div class="focal-indicator">F/2.8 &bull; 85mm &bull; ISO 100</div>
+          <div id="viewfinder-focus-box" class="focus-box"></div>
+          <div id="viewfinder-action-badge" class="action-badge hidden">✨ 超棒動作！</div>
           <div class="snap-hint">點擊 <b>⚪ 快門</b>、按 <b>SPACE</b> 或 <b>滑鼠左鍵</b> 拍攝照片</div>
         </div>
       </div>
 
-      <!-- Field Guide Dossier Modal -->
+      <!-- Field Guide Dossier Modal (Legacy) -->
       <div id="field-guide-modal" class="hidden">
         <div class="guide-card">
           <div class="guide-header">
@@ -131,11 +138,48 @@
         </div>
       </div>
 
+      <!-- Voice-Guided Kids Encyclopedia Modal (New) -->
+      <div id="voice-encyclopedia-modal" class="voice-book-modal hidden"></div>
+
       <!-- Photo Snapshot Card -->
       <div id="photo-preview" class="hidden">
-        <div class="polaroid">
+        <div class="polaroid" id="polaroid-card">
+          <div id="photo-stars" class="photo-stars hidden">⭐⭐⭐</div>
           <img id="photo-img" src="" alt="Snapshot" />
           <div class="caption" id="photo-caption">Field Photo - Tyrannosaurus Rex</div>
+          <div id="photo-blank-notice" class="blank-notice hidden">🔍 照片裡沒有恐龍喔！試著把鏡頭對準大恐龍再拍一次吧！</div>
+        </div>
+      </div>
+
+      <!-- 拍立得左右對比視窗 (二選一) -->
+      <div id="photo-compare-modal" class="photo-compare-overlay hidden">
+        <div class="photo-compare-container">
+          <div class="compare-header">
+            <h3 class="compare-title">📸 拍到新的照片囉！要保留哪一張？</h3>
+            <div class="compare-timer-box">
+              ⏳ <span id="compare-countdown">10</span>s 後自動換新照片
+            </div>
+          </div>
+          <div class="compare-cards">
+            <!-- 左：舊照片 -->
+            <div id="compare-card-old" class="compare-card" title="點擊保留舊照片">
+              <div class="compare-card-badge">原本的照片</div>
+              <div class="compare-card-img-wrap">
+                <img id="compare-img-old" src="" alt="原本的照片" />
+              </div>
+              <div id="compare-stars-old" class="compare-stars">⭐⭐</div>
+              <div class="compare-btn-hint">👈 點擊保留這張</div>
+            </div>
+            <!-- 右：新照片 -->
+            <div id="compare-card-new" class="compare-card" title="點擊換成新照片">
+              <div class="compare-card-badge new-badge">✨ 新拍的照片</div>
+              <div class="compare-card-img-wrap">
+                <img id="compare-img-new" src="" alt="新拍的照片" />
+              </div>
+              <div id="compare-stars-new" class="compare-stars">⭐⭐⭐</div>
+              <div class="compare-btn-hint highlight">👉 點擊換成這張</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -148,17 +192,13 @@
       </div>
     </div>
 
-    <!-- Click to Start / PointerLock Blocker -->
+    <!-- Click to Start / Blocker -->
     <div id="blocker">
       <div id="instructions">
         <h1>PREHISTORIC VALLEY</h1>
         <p class="subtitle">恐龍世界 3D • 白堊紀史前探險</p>
-        <div id="tap-hint">
-          <span class="tap-finger">👆</span>
-          <span class="tap-label">點這裡開始探險！</span>
-        </div>
-        <div class="start-btn">點擊進入史前世界 &bull; CLICK TO ENTER</div>
-        <p class="keys-legend">滑動手指轉動視角 &bull; 搖桿/WASD 走路 &bull; 靠近恐龍互動！</p>
+        <button id="start-btn" class="start-btn">🦖 點這裡出發探險！</button>
+        <p class="keys-legend">滑鼠按住拖曳 / 手指滑動轉視角 &bull; 搖桿/WASD 走路 &bull; 靠近恐龍互動！</p>
       </div>
     </div>
 
